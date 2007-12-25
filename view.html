@@ -1,0 +1,77 @@
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+<title>ADEL Log Viewer</title>
+<script src="prototype.js"></script>
+<script>
+function getHTML()
+{
+  var url = '/~learn/cgi-bin/adel_log_viewer/log.cgi';
+  var login = $F('login');
+  var seq_id = $F('seq_id');
+  var test_name = $F('test_name');
+  var log_type = $A($(log).log_type).find(function(v) {
+    return v.checked;
+  });
+  var view_type = $A($(log).view_type).find(function(v) {
+    return v.checked;
+  });
+  var pars = 'login=' + login + '&log_type=' + log_type.value + '&seq_id=' +
+  seq_id + '&view_type=' + view_type.value + '&test_name=' + test_name;
+
+  var myAjax = new Ajax.Updater(
+                 {success: 'module_view'}, 
+		 url, 
+		 {
+		 method: 'get', 
+		 parameters: pars, 
+		 onFailure: reportError
+		 });
+
+}
+
+function reportError(request){ 
+  alert('Sorry. There was an error.');
+}
+</script>
+</head>
+<BODY>
+
+<h2>ADEL Log Viewer</h2>
+
+<table border="0" height="100%">
+<tr>
+<td valign="top" width="350px;" style="border-right:solid 3px gray;">
+<form id="log" action="./log.cgi" method="get">
+Login ID:<input type="text" id="login" size="40" /><br />
+
+<div style="margin:10px;padding:10px;border:solid 2px gray;">
+<span style="font-weight:bold;font-size:1.0em;">Module Log</span>
+<input type="radio" name="log_type" value="module" checked="true" /><br />
+SEQ ID:<input type="text" id="seq_id" size="40" /><br />
+閲覧回数:<input type="radio" name="view_type" value="number" checked="true" />
+閲覧時間:<input type="radio" name="view_type" value="time" />
+</div>
+
+<div style="margin:10px;padding:10px;border:solid 2px gray;">
+<span style="font-weight:bold;font-size:1.0em;">Test Log</span>
+<input type="radio" name="log_type" value="test" /><br />
+Test Name:<input type="text" id="test_name" size="40" /><br />
+得点:<input type="radio" name="view_type_test" value="point" checked="true" />
+実施時間:<input type="radio" name="view_type_test" value="time" />
+</div>
+
+<input type="button" onclick="getHTML();" value="submit" />
+</form>
+</td>
+
+<td valign="top">
+<div style="left:20px;" id="module_view">
+</div>
+</td>
+</tr>
+</table>
+
+</BODY>
+
+</html>
