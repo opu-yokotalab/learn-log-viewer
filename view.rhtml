@@ -46,10 +46,17 @@ function reportError(request){
 Login ID:<input type="text" id="login" size="30" /><br />
 日時指定:<br />
 <select name="year_before">
+<option value="2007">2007</option>
 </select>
 <select name="month_before">
+<% (1..12).each do |i| %>
+<option value="<%= i %>"><%= i %></option>
+<% end %>
 </select>
 <select name="day_before">
+<% (1..31).each do |i| %>
+<option value="<%= i %>"><%= i %></option>
+<% end %>
 </select>
 
 <div style="margin:10px;padding:10px;border:solid 2px gray;">
