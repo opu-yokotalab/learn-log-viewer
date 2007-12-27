@@ -149,7 +149,7 @@ if query_str["log_type"] =~ /module/
     mod_times.each do |v|
       mod_name = logDB.getByModuleName(v[0].to_i)
       if mod_name
-        xy_array.push([mod_name,v[1]])
+        xy_array.push([mod_name,v[1].to_i])
       end
     end
     
