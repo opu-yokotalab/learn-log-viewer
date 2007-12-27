@@ -45,19 +45,44 @@ function reportError(request){
 <form id="log" action="./log.cgi" method="get">
 Login ID:<input type="text" id="login" size="30" /><br />
 日時指定:<br />
-<select name="year_before">
+<select name="year_from">
 <option value="2007">2007</option>
-</select>
-<select name="month_before">
+</select>年
+
+<select name="month_from">
+<option value="none">---</option>
 <% (1..12).each do |i| %>
 <option value="<%= i %>"><%= i %></option>
 <% end %>
-</select>
-<select name="day_before">
+</select>月
+
+<select name="day_from">
+<option value="none">---</option>
 <% (1..31).each do |i| %>
 <option value="<%= i %>"><%= i %></option>
 <% end %>
-</select>
+</select>日　から
+
+
+
+<select name="year_to">
+<option value="2007">2007</option>
+</select>年
+
+<select name="month_to">
+<option value="none">---</option>
+<% (1..12).each do |i| %>
+<option value="<%= i %>"><%= i %></option>
+<% end %>
+</select>月
+
+<select name="day_to">
+<option value="none">---</option>
+<% (1..31).each do |i| %>
+<option value="<%= i %>"><%= i %></option>
+<% end %>
+</select>日　まで
+
 
 <div style="margin:10px;padding:10px;border:solid 2px gray;">
 <span style="font-weight:bold;font-size:1.0em;">Module Log</span>
