@@ -70,25 +70,25 @@ function reportError(request){
 <form id="log" action="./log.cgi" method="get">
 Login ID:<input type="text" id="login" size="30" /><br />
 日時指定:<br />
-<select name="year_from">
+<select id="year_from">
 <option value="2007">2007</option>
 </select>年
 
-<select name="month_from">
+<select id="month_from">
 <option value="none">---</option>
 <% (1..12).each do |i| %>
 <option value="<%= i %>"><%= i %></option>
 <% end %>
 </select>月
 
-<select name="day_from">
+<select id="day_from">
 <option value="none">---</option>
 <% (1..31).each do |i| %>
 <option value="<%= i %>"><%= i %></option>
 <% end %>
 </select>日
 
-<select name="hour_from">
+<select id="hour_from">
 <option value="none">---</option>
 <% (1..24).each do |i| %>
 <option value="<%= i %>"><%= i %></option>
@@ -96,25 +96,25 @@ Login ID:<input type="text" id="login" size="30" /><br />
 </select>時　から
 <br />
 
-<select name="year_to">
+<select id="year_to">
 <option value="2007">2007</option>
 </select>年
 
-<select name="month_to">
+<select id="month_to">
 <option value="none">---</option>
 <% (1..12).each do |i| %>
 <option value="<%= i %>"><%= i %></option>
 <% end %>
 </select>月
 
-<select name="day_to">
+<select id="day_to">
 <option value="none">---</option>
 <% (1..31).each do |i| %>
 <option value="<%= i %>"><%= i %></option>
 <% end %>
 </select>日
 
-<select name="hour_to">
+<select id="hour_to">
 <option value="none">---</option>
 <% (1..24).each do |i| %>
 <option value="<%= i %>"><%= i %></option>
