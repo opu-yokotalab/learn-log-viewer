@@ -3,6 +3,19 @@ require 'cgi'
 require 'time'
 require 'dbaccess.rb'
 
+def chartHeight(xy_array)
+  # グラフの縦のサイズを求める(モジュールログ限定)
+  if xy_array.length <= 3
+    return 300
+  elsif xy_array.length <= 5
+    return 400
+  elsif xy_array.length <= 7
+    return 500
+  elsif xy_array.length <= 9
+    return 600
+  end
+end
+
 def xy_max(xy_array)
   # xy_array 最大値を求める
   max_value = 0
@@ -53,6 +66,10 @@ def setParams(chs,cht,chxt,array,max_value,y_split)
     chm += "o,FFCC33,0,#{array.length - 1}.0,10.0"
     chParams.store("chm",chm)
   end
+  # make chg
+  grid_x = 100.to_f/array.length
+  grid_y = max_value.to_f/y_split
+  chParams.store("chg","#{grid_x},#{grid_y}")
   # make chd
   chParams.store("chd","t:#{arrayValues(array).join(',')}")
   # make chxl
@@ -86,6 +103,7 @@ def makeChart(chs,cht,chxt,array,max_value,y_split)
   if chParams.key?("chm")
     chartURL += "&chm=#{chParams["chm"]}"
   end
+  chartURL += "&chg=#{chParams["chg"]}"
   chartURL += "&chxt=#{chParams["chxt"]}"
   chartURL += "&chxl=#{chParams["chxl"]}"
   
@@ -166,8 +184,9 @@ if query_str["log_type"] =~ /module/
     end
     
     max_value = xy_max(xy_array)
+    height = chartHeight(xy_array)
 
-    out_img_tag = makeChart("500x600","bhg","y,x",xy_array,max_value,max_value)    
+    out_img_tag = makeChart("500x#{height}","bhg","y,x",xy_array,max_value,max_value)    
     
   # モジュール閲覧時間グラフの描画
   elsif query_str["view_type"] =~ /time/
@@ -204,7 +223,8 @@ if query_str["log_type"] =~ /module/
     end
 
     max_value = xy_max(xy_array)
-    out_img_tag = makeChart("500x600","bhg","y,x",xy_array,max_value,5)
+    height = chartHeight(xy_array)
+    out_img_tag = makeChart("500x#{height}","bhg","y,x",xy_array,max_value,5)
   end
 # Print to Test Log
 elsif query_str["log_type"] =~ /test/
