@@ -20,8 +20,8 @@ class DBAccess
     return res.result[0][0]
   end
 
-  def getByUserList
-    res = @conn.exec("select id from users order by id")
+  def getLoginList
+    res = @conn.exec("select id from users")
     return res.result
   end
 
