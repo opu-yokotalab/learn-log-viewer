@@ -49,9 +49,9 @@ function getHTML()
 {
   // form 入力値の代入
   var url = '/~learn/cgi-bin/adel_log_viewer/log.cgi';
-  var login = $F('login');
-  var seq_id = $F('seq_id');
-  var test_name = $F('test_name');
+  var login = selection(log.login);
+  var seq_id = selection(log.seq_id);
+  var test_name = selection(log.test_name);
   
   var year_from = selection(log.year_from);
   var month_from = selection(log.month_from);
@@ -177,12 +177,11 @@ SEQ ID:
 <option value="none">---</option>
 <% seq = logDB.getSeqList %>
 <% seq.each do |l| %>
-<option value="<%= l[0] %>"><%= l[1].to_s %></option>
+<option value="<%= l[0] %>"><%= l[1].to_s.toeuc %></option>
 <% end %>
 <option value="all">all</option>
 </select><br />
 
-<input type="text" id="seq_id" size="40" /><br />
 閲覧回数:<input type="radio" name="view_type" value="number" checked="true" />
 閲覧時間:<input type="radio" name="view_type" value="time" />
 </div>
@@ -200,8 +199,6 @@ Test Name:
 <!-- <option value="all">all</option> -->
 </select><br />
 
-
-<input type="text" id="test_name" size="40" /><br />
 得点:<input type="radio" name="view_type_test" value="point" checked="true" />
 実施時間:<input type="radio" name="view_type_test" value="time" />
 </div>
