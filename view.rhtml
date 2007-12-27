@@ -8,7 +8,7 @@
 <script>
 function getHTML()
 {
-  // form $BF~NOCM$NBeF~(B
+  // form ÆþÎÏÃÍ¤ÎÂåÆþ
   var url = '/~learn/cgi-bin/adel_log_viewer/log.cgi';
   var login = $F('login');
   var seq_id = $F('seq_id');
@@ -24,7 +24,7 @@ function getHTML()
   var day_to = selection(log.day_to);
   var hour_to = selection(log.hour_to);
 
-  // radio button $B=hM}(B
+  // radio button ½èÍý
   var log_type = $A($(log).log_type).find(function(v) {
     return v.checked;
   });
@@ -77,73 +77,73 @@ Login ID:
 <option value="all">all</option>
 </select><br />
 
-$BF|;~;XDj(B:<br />
+Æü»þ»ØÄê:<br />
 <select name="year_from">
 <option value="2007">2007</option>
-</select>$BG/(B
+</select>Ç¯
 
 <select name="month_from">
 <option value="none">---</option>
 <% (1..12).each do |i| %>
 <option value="<%= i %>"><%= i %></option>
 <% end %>
-</select>$B7n(B
+</select>·î
 
 <select name="day_from">
 <option value="none">---</option>
 <% (1..31).each do |i| %>
 <option value="<%= i %>"><%= i %></option>
 <% end %>
-</select>$BF|(B
+</select>Æü
 
 <select name="hour_from">
 <option value="none">---</option>
 <% (1..24).each do |i| %>
 <option value="<%= i %>"><%= i %></option>
 <% end %>
-</select>$B;~!!$+$i(B
+</select>»þ¡¡¤«¤é
 <br />
 
 <select name="year_to">
 <option value="2007">2007</option>
-</select>$BG/(B
+</select>Ç¯
 
 <select name="month_to">
 <option value="none">---</option>
 <% (1..12).each do |i| %>
 <option value="<%= i %>"><%= i %></option>
 <% end %>
-</select>$B7n(B
+</select>·î
 
 <select name="day_to">
 <option value="none">---</option>
 <% (1..31).each do |i| %>
 <option value="<%= i %>"><%= i %></option>
 <% end %>
-</select>$BF|(B
+</select>Æü
 
 <select name="hour_to">
 <option value="none">---</option>
 <% (1..24).each do |i| %>
 <option value="<%= i %>"><%= i %></option>
 <% end %>
-</select>$B;~!!$^$G(B
+</select>»þ¡¡¤Þ¤Ç
 <br />
 
 <div style="margin:10px;padding:10px;border:solid 2px gray;">
 <span style="font-weight:bold;font-size:1.0em;">Module Log</span>
 <input type="radio" name="log_type" value="module" checked="true" /><br />
 SEQ ID:<input type="text" id="seq_id" size="40" /><br />
-$B1\Mw2s?t(B:<input type="radio" name="view_type" value="number" checked="true" />
-$B1\Mw;~4V(B:<input type="radio" name="view_type" value="time" />
+±ÜÍ÷²ó¿ô:<input type="radio" name="view_type" value="number" checked="true" />
+±ÜÍ÷»þ´Ö:<input type="radio" name="view_type" value="time" />
 </div>
 
 <div style="margin:10px;padding:10px;border:solid 2px gray;">
 <span style="font-weight:bold;font-size:1.0em;">Test Log</span>
 <input type="radio" name="log_type" value="test" /><br />
 Test Name:<input type="text" id="test_name" size="40" /><br />
-$BF@E@(B:<input type="radio" name="view_type_test" value="point" checked="true" />
-$B<B;\;~4V(B:<input type="radio" name="view_type_test" value="time" />
+ÆÀÅÀ:<input type="radio" name="view_type_test" value="point" checked="true" />
+¼Â»Ü»þ´Ö:<input type="radio" name="view_type_test" value="time" />
 </div>
 
 <input type="button" onclick="getHTML();" value="submit" />
