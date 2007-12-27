@@ -43,22 +43,29 @@ function reportError(request){
 <tr>
 <td valign="top" width="350px;" style="border-right:solid 3px gray;">
 <form id="log" action="./log.cgi" method="get">
-Login ID:<input type="text" id="login" size="40" /><br />
+Login ID:<input type="text" id="login" size="30" /><br />
+$BF|;~;XDj(B:<br />
+<select name="year_before">
+</select>
+<select name="month_before">
+</select>
+<select name="day_before">
+</select>
 
 <div style="margin:10px;padding:10px;border:solid 2px gray;">
 <span style="font-weight:bold;font-size:1.0em;">Module Log</span>
 <input type="radio" name="log_type" value="module" checked="true" /><br />
 SEQ ID:<input type="text" id="seq_id" size="40" /><br />
-±ÜÍ÷²ó¿ô:<input type="radio" name="view_type" value="number" checked="true" />
-±ÜÍ÷»þ´Ö:<input type="radio" name="view_type" value="time" />
+$B1\Mw2s?t(B:<input type="radio" name="view_type" value="number" checked="true" />
+$B1\Mw;~4V(B:<input type="radio" name="view_type" value="time" />
 </div>
 
 <div style="margin:10px;padding:10px;border:solid 2px gray;">
 <span style="font-weight:bold;font-size:1.0em;">Test Log</span>
 <input type="radio" name="log_type" value="test" /><br />
 Test Name:<input type="text" id="test_name" size="40" /><br />
-ÆÀÅÀ:<input type="radio" name="view_type_test" value="point" checked="true" />
-¼Â»Ü»þ´Ö:<input type="radio" name="view_type_test" value="time" />
+$BF@E@(B:<input type="radio" name="view_type_test" value="point" checked="true" />
+$B<B;\;~4V(B:<input type="radio" name="view_type_test" value="time" />
 </div>
 
 <input type="button" onclick="getHTML();" value="submit" />
