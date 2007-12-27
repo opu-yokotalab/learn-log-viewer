@@ -23,12 +23,12 @@ class DBAccess
   end
   
   def getLoginList
-    res = @conn.exec("select login from users order by id")
+    res = @conn.exec("select id , login from users order by id")
     return res.result
   end
 
   def getTestList
-    res = @conn.exec("select test_name from ent_tests order by id")
+    res = @conn.exec("select id , test_name from ent_tests order by id")
     return res.result
   end
 
@@ -51,7 +51,7 @@ function getHTML()
   var url = '/~learn/cgi-bin/adel_log_viewer/log.cgi';
   var login = selection(log.login);
   var seq_id = selection(log.seq_id);
-  var test_name = selection(log.test_name);
+  var test_id = selection(log.test_id);
   
   var year_from = selection(log.year_from);
   var month_from = selection(log.month_from);
@@ -73,7 +73,7 @@ function getHTML()
 
 
   var pars = 'login=' + login + '&log_type=' + log_type.value + '&seq_id=' +
-  seq_id + '&view_type=' + view_type.value + '&test_name=' + test_name +
+  seq_id + '&view_type=' + view_type.value + '&test_id=' + test_id +
   '&year_from=' + year_from + '&month_from=' + month_from + '&day_from=' +
   day_from + '&hour_from=' + hour_from + '&year_to=' + year_to + '&month_to=' + month_to +
   '&day_to=' + day_to + '&hour_to=' + hour_to;
@@ -111,7 +111,7 @@ Login ID:
 <option value="none">---</option>
 <% login = logDB.getLoginList %>
 <% login.each do |l| %>
-<option value="<%= l %>"><%= l %></option>
+<option value="<%= l[0] %>"><%= l[1] %></option>
 <% end %>
 <option value="all">all</option>
 </select><br />
@@ -190,11 +190,11 @@ SEQ ID:
 <span style="font-weight:bold;font-size:1.0em;">Test Log</span>
 <input type="radio" name="log_type" value="test" /><br />
 Test Name:
-<select name="test_name">
+<select name="test_id">
 <option value="none">---</option>
 <% test = logDB.getTestList %>
 <% test.each do |l| %>
-<option value="<%= l %>"><%= l %></option>
+<option value="<%= l[0] %>"><%= l[1] %></option>
 <% end %>
 <!-- <option value="all">all</option> -->
 </select><br />

@@ -96,7 +96,7 @@ query_str.store("login",cgi["login"])
 query_str.store("log_type",cgi["log_type"])
 query_str.store("view_type",cgi["view_type"])
 query_str.store("seq_id",cgi["seq_id"])
-query_str.store("test_name",cgi["test_name"])
+query_str.store("test_id",cgi["test_id"])
 
 query_str.store("year_from",cgi["year_from"])
 query_str.store("month_from",cgi["month_from"])
@@ -111,18 +111,15 @@ query_str.store("hour_to",cgi["hour_to"])
 # make DB instance
 logDB = DBAccess.new
 
-# get user id
-user_id = logDB.getByUserID(query_str["login"])
-
 # Module or Test
 # Print to Module Log
 if query_str["log_type"] =~ /module/
   if query_str["view_type"] =~ /number/
     
     if query_str["seq_id"] =~ /all/
-      mod_times = logDB.getByModuleTimesAll(user_id)
+      mod_times = logDB.getByModuleTimesAll(query_str["login"])
     else
-      mod_times = logDB.getByModuleTimes(user_id , query_str["seq_id"])
+      mod_times = logDB.getByModuleTimes(query_str["login"] , query_str["seq_id"])
     end
     
     xy_array = Array.new
@@ -140,9 +137,9 @@ if query_str["log_type"] =~ /module/
   elsif query_str["view_type"] =~ /time/
 
     if query_str["seq_id"] =~ /all/
-      mod_timezone = logDB.getByModuleTimeZoneAll(user_id)
+      mod_timezone = logDB.getByModuleTimeZoneAll(query_str["login"])
     else
-      mod_timezone = logDB.getByModuleTimeZone(user_id , query_str["seq_id"])
+      mod_timezone = logDB.getByModuleTimeZone(query_str["login"] , query_str["seq_id"])
     end
     
     mod_hash = Hash.new
@@ -173,9 +170,9 @@ if query_str["log_type"] =~ /module/
 # Print to Test Log
 elsif query_str["log_type"] =~ /test/
   # get test Max Point
-  max_point = logDB.getByTestMaxPoint(query_str["test_name"])[0]
+  max_point = logDB.getByTestMaxPoint(query_str["test_id"])[0]
   # get test point , time from test_logs
-  point_and_time = logDB.getByTestPointAndTime(user_id , logDB.getByTestID(query_str["test_name"]))
+  point_and_time = logDB.getByTestPointAndTime(query_str["login"] , query_str["test_id"])
 
   xy_array = Array.new
   i = 0

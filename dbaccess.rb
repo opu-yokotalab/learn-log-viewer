@@ -15,11 +15,6 @@ class DBAccess
     end
   end
   
-  def getByUserID(login)
-    res = @conn.exec("select id from users where login = '#{login}'")
-    return res.result[0][0]
-  end
-
   def getByModuleName(module_id)
     if module_id != -1
       res = @conn.exec("select module_name from ent_modules where id = #{module_id}")
@@ -37,13 +32,8 @@ class DBAccess
     return res.result
   end
 
-  def getByTestMaxPoint(test_name)
-    res = @conn.exec("select max_sum_point from ent_tests where test_name = '#{test_name}'")
-    return res.result[0]
-  end
-
-  def getByTestID(test_name)
-    res = @conn.exec("select id from ent_tests where test_name = '#{test_name}'")
+  def getByTestMaxPoint(test_id)
+    res = @conn.exec("select max_sum_point from ent_tests where id = '#{test_id}'")
     return res.result[0]
   end
 
