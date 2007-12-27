@@ -11,7 +11,7 @@ def chartHeight(xy_array)
     return 400
   elsif xy_array.length <= 7
     return 500
-  elsif xy_array.length <= 9
+  else
     return 600
   end
 end
@@ -81,7 +81,11 @@ def setParams(chs,cht,chxt,array,max_value,y_split)
   chxl += "|1:|0"
   n = 1
   y_split.times do
-    chxl += "|#{sprintf("%.2f",max_value.to_f/y_split*n)}"
+    if array[0][1].class == Float
+      chxl += "|#{sprintf("%.2f",max_value.to_f/y_split*n)}"
+    else
+      chxl += "|#{(max_value.to_f/y_split*n).to_i}"
+    end
     n += 1
   end
   chParams.store("chxl",chxl)
