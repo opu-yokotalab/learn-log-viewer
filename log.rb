@@ -33,7 +33,7 @@ end
 def textEncode(array,max_value)
   encode_array = Array.new
   array.each do |v|
-    encode_array.push([v[0],v[1].to_i/max_value.to_f*100])
+    encode_array.push([v[0],v[1]/max_value.to_f*100])
   end
   return encode_array
 end
