@@ -87,6 +87,7 @@ def setParams(chs,cht,chxt,array,max_value,y_split)
   array.each do |i|
     if i[1].class == Float
       float_flag = true
+      break
     end
   end
   # yº¥§ŒÃ‹¿π…¡≤Ë
