@@ -44,6 +44,14 @@ def setParams(chs,cht,chxt,array,max_value,y_split)
   chParams.store("cht",cht)
   chParams.store("chxt",chxt)
   
+  # make chm
+  if cht =~ /lc/
+    chm = ""
+    array.length.times do |i|
+      chm += "o,0000FF,0,#{i},10.0|"
+    end
+    chParams.store("chm",chm)
+  end
   # make chd
   chParams.store("chd","t:#{arrayValues(array).join(',')}")
   # make chxl
@@ -74,7 +82,9 @@ def makeChart(chs,cht,chxt,array,max_value,y_split)
   chartURL += "chs=#{chParams["chs"]}"
   chartURL += "&chd=#{chParams["chd"]}"
   chartURL += "&cht=#{chParams["cht"]}"
-  chartURL += "&chm=o,FF0000,0,,10.0"
+  if chParams.keys?("chm")
+    chartURL += "&chm=#{chParams["chm"]}"
+  end
   chartURL += "&chxt=#{chParams["chxt"]}"
   chartURL += "&chxl=#{chParams["chxl"]}"
   
