@@ -14,15 +14,15 @@ function getHTML()
   var seq_id = $F('seq_id');
   var test_name = $F('test_name');
   
-  var year_from = $F('year_from');
-  var month_from = $F('month_from');
-  var day_from = $F('day_from');
-  var hour_from = $F('hour_from');
+  var year_from = selection(log.year_from);
+  var month_from = selection(log.month_from);
+  var day_from = selection(log.day_from);
+  var hour_from = selection(log.hour_from);
   
-  var year_to = $F('year_to');
-  var month_to = $F('month_to');
-  var day_to = $F('day_to');
-  var hour_to = $F('hour_to');
+  var year_to = selection(log.year_to);
+  var month_to = selection(log.month_to);
+  var day_to = selection(log.day_to);
+  var hour_to = selection(log.hour_to);
 
   // radio button 処理
   var log_type = $A($(log).log_type).find(function(v) {
@@ -48,6 +48,10 @@ function getHTML()
 		 onFailure: reportError
 		 });
 
+}
+
+function selection(sel){
+  return sel.options[ sel.selectedIndex ].value
 }
 
 function reportError(request){ 
