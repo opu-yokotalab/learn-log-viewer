@@ -16,11 +16,11 @@ class DBAccess
   end
   
   def getByUserID(login)
-    res = @conn.exec("select id from users where \"login\" = 'konishi'")
+    res = @conn.exec("select id from users where login = '#{login}'")
     return res.result[0][0]
   end
 
-  def getLoginList
+  def getByUserList
     res = @conn.exec("select login from users order by id")
     return res.result
   end
