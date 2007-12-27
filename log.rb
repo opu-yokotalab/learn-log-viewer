@@ -129,7 +129,7 @@ end
 def view(v1,v2)
   print "Content-type: text/html\n\n"
   p v1
-  print "<br />"
+  print "<br /><br />"
   print v2
 end
 
