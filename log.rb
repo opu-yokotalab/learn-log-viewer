@@ -82,7 +82,7 @@ def makeChart(chs,cht,chxt,array,max_value,y_split)
   chartURL += "chs=#{chParams["chs"]}"
   chartURL += "&chd=#{chParams["chd"]}"
   chartURL += "&cht=#{chParams["cht"]}"
-  if chParams.keys?("chm")
+  if chParams.key?("chm")
     chartURL += "&chm=#{chParams["chm"]}"
   end
   chartURL += "&chxt=#{chParams["chxt"]}"
