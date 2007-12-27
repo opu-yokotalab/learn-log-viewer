@@ -128,8 +128,8 @@ end
 # Output function
 def view(v1,v2)
   print "Content-type: text/html\n\n"
-  p v1
-  print "<br /><br />"
+  #  p v1
+  #  print "<br />"
   print v2
 end
 
