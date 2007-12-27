@@ -1,3 +1,5 @@
+<% require 'dbaccess.rb' %>
+<% logDB = DBAccess.new %>
 <!doctype html public "-//W3C//DTD HTML 3.2//EN">
 <html>
 <head>
@@ -43,7 +45,8 @@ function reportError(request){
 <tr>
 <td valign="top" width="350px;" style="border-right:solid 3px gray;">
 <form id="log" action="./log.cgi" method="get">
-Login ID:<input type="text" id="login" size="30" /><br />
+Login ID:<input type="text" id="login" size="30" value="<%=
+logDB.getByUserID('konishi') %>" /><br />
 日時指定:<br />
 <select name="year_from">
 <option value="2007">2007</option>
@@ -61,7 +64,14 @@ Login ID:<input type="text" id="login" size="30" /><br />
 <% (1..31).each do |i| %>
 <option value="<%= i %>"><%= i %></option>
 <% end %>
-</select>日　から
+</select>日
+
+<select name="hour_from">
+<option value="none">---</option>
+<% (1..24).each do |i| %>
+<option value="<%= i %>"><%= i %></option>
+<% end %>
+</select>時　から
 <br />
 
 <select name="year_to">
@@ -80,8 +90,14 @@ Login ID:<input type="text" id="login" size="30" /><br />
 <% (1..31).each do |i| %>
 <option value="<%= i %>"><%= i %></option>
 <% end %>
-</select>日　まで
-<br />
+</select>日
+
+<select name="hour_to">
+<option value="none">---</option>
+<% (1..24).each do |i| %>
+<option value="<%= i %>"><%= i %></option>
+<% end %>
+</select>時　まで
 <br />
 
 <div style="margin:10px;padding:10px;border:solid 2px gray;">
@@ -114,3 +130,4 @@ Test Name:<input type="text" id="test_name" size="40" /><br />
 </BODY>
 
 </html>
+<% logDB.dbClose %>
