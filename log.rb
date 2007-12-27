@@ -209,7 +209,7 @@ elsif query_str["log_type"] =~ /test/
     i+=1
   end
   
-  out_img_tag = makeChart("800x300","bvg","x,y",xy_array,max_point,10)
+  out_img_tag = makeChart("800x300","lxy","x,y",xy_array,max_point,10)
 end
 
 # DB Connect Close
