@@ -108,8 +108,29 @@ query_str.store("month_to",cgi["month_to"])
 query_str.store("day_to",cgi["day_to"])
 query_str.store("hour_to",cgi["hour_to"])
 
+if query_str["login"] =~ /none/
+  view("ログインIDを入力してください．","Error!")
+  exit
+end
+
 # make DB instance
 logDB = DBAccess.new
+
+# make Time object
+if query_str["hour_from"] =~ /none/
+  query_str["hour_from"] = 0
+end
+if query_str["hour_to"] =~ /none/
+  query_str["hour_to"] = 0
+end
+
+time_from = "#{query_str["year_from"]}/#{query_str["month_from"]}/#{query_str["day_from"]} #{query_str["hour_from"]}:00"
+time_to = "#{query_str["year_to"]}/#{query_str["month_to"]}/#{query_str["day_to"]} #{query_str["hour_to"]}:00"
+
+time_from = Time.parse(time_from).strftime("%Y-%m-%d %H:%M")
+time_to = Time.parse(time_to).strftime("%Y-%m-%d %H:%M")
+
+
 
 # Module or Test
 # Print to Module Log
@@ -190,7 +211,7 @@ logDB.dbClose
   
 
 if true
-view(query_str,"dummy")
+view(time_from,time_to)
 else
 # View
 view(xy_array,out_img_tag)

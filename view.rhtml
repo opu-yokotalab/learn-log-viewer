@@ -122,14 +122,12 @@ Login ID:
 </select>年
 
 <select name="month_from">
-<option value="none">---</option>
 <% (1..12).each do |i| %>
 <option value="<%= i %>"><%= i %></option>
 <% end %>
 </select>月
 
 <select name="day_from">
-<option value="none">---</option>
 <% (1..31).each do |i| %>
 <option value="<%= i %>"><%= i %></option>
 <% end %>
@@ -137,7 +135,7 @@ Login ID:
 
 <select name="hour_from">
 <option value="none">---</option>
-<% (1..24).each do |i| %>
+<% (0..23).each do |i| %>
 <option value="<%= i %>"><%= i %></option>
 <% end %>
 </select>時　から
@@ -148,14 +146,12 @@ Login ID:
 </select>年
 
 <select name="month_to">
-<option value="none">---</option>
 <% (1..12).each do |i| %>
 <option value="<%= i %>"><%= i %></option>
 <% end %>
 </select>月
 
 <select name="day_to">
-<option value="none">---</option>
 <% (1..31).each do |i| %>
 <option value="<%= i %>"><%= i %></option>
 <% end %>
@@ -163,7 +159,7 @@ Login ID:
 
 <select name="hour_to">
 <option value="none">---</option>
-<% (1..24).each do |i| %>
+<% (0..23).each do |i| %>
 <option value="<%= i %>"><%= i %></option>
 <% end %>
 </select>時　まで
