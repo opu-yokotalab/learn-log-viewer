@@ -74,6 +74,7 @@ def makeChart(chs,cht,chxt,array,max_value,y_split)
   chartURL += "chs=#{chParams["chs"]}"
   chartURL += "&chd=#{chParams["chd"]}"
   chartURL += "&cht=#{chParams["cht"]}"
+  chartURL += "&chm=o,FFCC33,1,1.0,10.0"
   chartURL += "&chxt=#{chParams["chxt"]}"
   chartURL += "&chxl=#{chParams["chxl"]}"
   
@@ -209,7 +210,7 @@ elsif query_str["log_type"] =~ /test/
     i+=1
   end
   
-  out_img_tag = makeChart("800x300","lxy","x,y",xy_array,max_point,10)
+  out_img_tag = makeChart("700x300","lc","x,y",xy_array,max_point,10)
 end
 
 # DB Connect Close
