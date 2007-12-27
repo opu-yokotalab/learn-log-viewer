@@ -205,7 +205,7 @@ elsif query_str["log_type"] =~ /test/
   i = 0
   point_and_time.each do |pt|
     x_time = Time.parse(pt[0])
-    xy_array.push([x_time.strftime("%m/%d-%H:%M"),pt[1]])
+    xy_array.push([x_time.strftime("%m/%d-%H:%M"),pt[1].to_i])
     i+=1
   end
   
