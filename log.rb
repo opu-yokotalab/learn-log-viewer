@@ -55,7 +55,7 @@ def setParams(chs,cht,chxt,array,max_value,y_split)
   chxl += "|1:|0"
   n = 1
   y_split.times do
-    chxl += "|#{max_value.to_f/y_split*n}"
+    chxl += "|#{sprintf("%.2f",max_value.to_f/y_split*n)}"
     n += 1
   end
   chParams.store("chxl",chxl)
