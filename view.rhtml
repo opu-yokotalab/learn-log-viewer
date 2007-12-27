@@ -14,7 +14,7 @@ function getHTML()
   var seq_id = $F('seq_id');
   var test_name = $F('test_name');
   
-  var year_from = selection(log.year_from);
+  var year_from = log.year_from.selectedIndex
   var month_from = selection(log.month_from);
   var day_from = selection(log.day_from);
   var hour_from = selection(log.hour_from);
@@ -35,9 +35,9 @@ function getHTML()
 
   var pars = 'login=' + login + '&log_type=' + log_type.value + '&seq_id=' +
   seq_id + '&view_type=' + view_type.value + '&test_name=' + test_name +
-  '&year_from' + year_from + '&month_from' + month_from + '&day_from' +
-  day_from + '&year_to' + year_to + '&month_to' + month_to +
-  '&day_to' + day_to;
+  '&year_from=' + year_from + '&month_from=' + month_from + '&day_from=' +
+  day_from + '&hour_from=' + hour_from + '&year_to=' + year_to + '&month_to=' + month_to +
+  '&day_to=' + day_to + '&hour_to=' + hour_to;
 
   var myAjax = new Ajax.Updater(
                  {success: 'module_view'}, 
@@ -51,8 +51,7 @@ function getHTML()
 }
 
 function selection(sel){
-  //return sel.options[ sel.selectedIndex ].value
-  return sel.selectedIndex
+  return sel.options[ sel.selectedIndex ].value
 }
 
 function reportError(request){ 
@@ -70,25 +69,25 @@ function reportError(request){
 <form id="log" action="./log.cgi" method="get">
 Login ID:<input type="text" id="login" size="30" /><br />
 日時指定:<br />
-<select id="year_from">
+<select name="year_from">
 <option value="2007">2007</option>
 </select>年
 
-<select id="month_from">
+<select name="month_from">
 <option value="none">---</option>
 <% (1..12).each do |i| %>
 <option value="<%= i %>"><%= i %></option>
 <% end %>
 </select>月
 
-<select id="day_from">
+<select name="day_from">
 <option value="none">---</option>
 <% (1..31).each do |i| %>
 <option value="<%= i %>"><%= i %></option>
 <% end %>
 </select>日
 
-<select id="hour_from">
+<select name="hour_from">
 <option value="none">---</option>
 <% (1..24).each do |i| %>
 <option value="<%= i %>"><%= i %></option>
@@ -96,25 +95,25 @@ Login ID:<input type="text" id="login" size="30" /><br />
 </select>時　から
 <br />
 
-<select id="year_to">
+<select name="year_to">
 <option value="2007">2007</option>
 </select>年
 
-<select id="month_to">
+<select name="month_to">
 <option value="none">---</option>
 <% (1..12).each do |i| %>
 <option value="<%= i %>"><%= i %></option>
 <% end %>
 </select>月
 
-<select id="day_to">
+<select name="day_to">
 <option value="none">---</option>
 <% (1..31).each do |i| %>
 <option value="<%= i %>"><%= i %></option>
 <% end %>
 </select>日
 
-<select id="hour_to">
+<select name="hour_to">
 <option value="none">---</option>
 <% (1..24).each do |i| %>
 <option value="<%= i %>"><%= i %></option>
