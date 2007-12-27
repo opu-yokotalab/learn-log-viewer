@@ -20,11 +20,6 @@ class DBAccess
     return res.result[0][0]
   end
 
-  def getLoginList
-    res = @conn.exec("select id from users")
-    return res.result
-  end
-
   def getByModuleName(module_id)
     if module_id != -1
       res = @conn.exec("select module_name from ent_modules where id = #{module_id}")

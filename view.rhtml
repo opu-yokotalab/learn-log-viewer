@@ -1,7 +1,5 @@
 <%
-
-
-
+require 'kconv'
 require 'postgres'
 
 class DBAccess
@@ -14,99 +12,37 @@ class DBAccess
     
     begin
       @conn = PGconn.connect(host,port,'','',dbname,user,pass)
-    rescue
+        rescue
       exit
     end
   end
+
+  def getSeqList
+    res = @conn.exec("select id , seq_title from ent_seqs order by id")
+    retrun res.result
+  end
   
-  def getByUserID(login)
-    res = @conn.exec("select id from users where login = '#{login}'")
-    return res.result[0][0]
-  end
-
   def getLoginList
-    res = @conn.exec("select id from users")
+    res = @conn.exec("select login from users order by id")
     return res.result
   end
 
-  def getByModuleName(module_id)
-    if module_id != -1
-      res = @conn.exec("select module_name from ent_modules where id = #{module_id}")
-      return res.result[0]
-    end
-  end
-
-  def getByModuleTimes(u_id , s_id)
-    res = @conn.exec("select ent_module_id , count(ent_module_id) from module_logs where user_id = '#{u_id}' and ent_seq_id='#{s_id}' group by ent_module_id order by ent_module_id")
+  def getTestList
+    res = @conn.exec("select test_name from ent_tests order by id")
     return res.result
-  end
-
-  def getByModuleTimesAll(u_id)
-    res = @conn.exec("select ent_module_id , count(ent_module_id) from module_logs where user_id = '#{u_id}' group by ent_module_id order by ent_module_id")
-    return res.result
-  end
-
-  def getByTestMaxPoint(test_name)
-    res = @conn.exec("select max_sum_point from ent_tests where test_name = '#{test_name}'")
-    return res.result[0]
-  end
-
-  def getByTestID(test_name)
-    res = @conn.exec("select id from ent_tests where test_name = '#{test_name}'")
-    return res.result[0]
-  end
-
-  def getByTestPointAndTime(user_id , test_id)
-    res = @conn.exec("select created_on , sum_point from test_logs where user_id = '#{user_id}' and ent_test_id = '#{test_id}' order by created_on")
-    return res.result
-  end
-
-  def getByModuleTimeZoneAll(user_id)
-    res = @conn.exec("select module_logs.ent_seq_id , module_logs.ent_module_id , module_logs.created_on from module_logs,ent_modules where module_logs.user_id = '#{user_id}' and module_logs.ent_module_id = ent_modules.id order by created_on")
-    res_array = Array.new
-    i = 0
-    while(i < res.result.length - 1)
-      r = res.result[i]
-      if r[1].to_i != -1
-        res_array.push([ r[1],r[2], res.result[i+1][2] ])
-      end
-      i += 1
-    end
-    return res_array
-  end
-
-  def getByModuleTimeZone(user_id,seq_id)
-    res = @conn.exec("select module_logs.ent_seq_id , module_logs.ent_module_id , module_logs.created_on from module_logs,ent_modules where module_logs.user_id = '#{user_id}' and module_logs.ent_seq_id = '#{seq_id}' and module_logs.ent_module_id = ent_modules.id order by created_on")
-    res_array = Array.new
-    i = 0
-    while(i < res.result.length - 1)
-      r = res.result[i]
-      if r[1].to_i != -1
-        res_array.push([ r[1],r[2], res.result[i+1][2] ])
-      end
-      i += 1
-    end
-    return res_array
   end
 
   def dbClose
-    # DB Close
     @conn.close
   end
 end
-
-
-
-
-
-
-
  %>
 <% logDB = DBAccess.new %>
 <!doctype html public "-//W3C//DTD HTML 3.2//EN">
 <html>
 <head>
 <title>ADEL Log Viewer</title>
+<meta http-equiv="Content-Type" content="text/html; charset=euc-jp">
 <script src="prototype.js"></script>
 <script>
 function getHTML()
@@ -236,7 +172,17 @@ Login ID:
 <div style="margin:10px;padding:10px;border:solid 2px gray;">
 <span style="font-weight:bold;font-size:1.0em;">Module Log</span>
 <input type="radio" name="log_type" value="module" checked="true" /><br />
-SEQ ID:<input type="text" id="seq_id" size="40" /><br />
+SEQ ID:
+<select name="seq_id">
+<option value="none">---</option>
+<% seq = logDB.getSeqList %>
+<% seq.each do |l| %>
+<option value="<%= l[0] %>"><%= l[1].to_s %></option>
+<% end %>
+<option value="all">all</option>
+</select><br />
+
+<input type="text" id="seq_id" size="40" /><br />
 閲覧回数:<input type="radio" name="view_type" value="number" checked="true" />
 閲覧時間:<input type="radio" name="view_type" value="time" />
 </div>
@@ -244,7 +190,18 @@ SEQ ID:<input type="text" id="seq_id" size="40" /><br />
 <div style="margin:10px;padding:10px;border:solid 2px gray;">
 <span style="font-weight:bold;font-size:1.0em;">Test Log</span>
 <input type="radio" name="log_type" value="test" /><br />
-Test Name:<input type="text" id="test_name" size="40" /><br />
+Test Name:
+<select name="test_name">
+<option value="none">---</option>
+<% test = logDB.getTestList %>
+<% test.each do |l| %>
+<option value="<%= l %>"><%= l %></option>
+<% end %>
+<!-- <option value="all">all</option> -->
+</select><br />
+
+
+<input type="text" id="test_name" size="40" /><br />
 得点:<input type="radio" name="view_type_test" value="point" checked="true" />
 実施時間:<input type="radio" name="view_type_test" value="time" />
 </div>
