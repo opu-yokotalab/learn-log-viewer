@@ -153,8 +153,9 @@ query_str.store("month_to",cgi["month_to"])
 query_str.store("day_to",cgi["day_to"])
 query_str.store("hour_to",cgi["hour_to"])
 
+# Error
 if query_str["login"] =~ /none/
-  view("Please input Login ID!!","Error!")
+  view("Please select Login ID!!","Error!")
   exit
 end
 
@@ -178,9 +179,12 @@ time_to = Time.parse(time_to).strftime("%Y-%m-%d %H:%M")
 
 # Module or Test
 # Print to Module Log
-if query_str["log_type"] =~ /module/
+if query_str["log_type"] =~ /module/  
+  if query_str["seq_id"] =~ /none/
+    view("Please select SEQ!!","Error!")
+    exit
   # モジュール閲覧回数グラフの描画
-  if query_str["view_type"] =~ /number/
+  elsif query_str["view_type"] =~ /number/
     
     # 全単元か否か
     if query_str["seq_id"] =~ /all/
@@ -242,20 +246,25 @@ if query_str["log_type"] =~ /module/
   end
 # Print to Test Log
 elsif query_str["log_type"] =~ /test/
-  # get test Max Point
-  max_point = logDB.getByTestMaxPoint(query_str["test_id"])[0]
-  # get test point , time from test_logs
-  point_and_time = logDB.getByTestPointAndTime(query_str["login"] , query_str["test_id"] , time_from , time_to)
-
-  xy_array = Array.new
-  i = 0
-  point_and_time.each do |pt|
-    x_time = Time.parse(pt[0])
-    xy_array.push([x_time.strftime("%m/%d-%H:%M"),pt[1].to_i])
-    i+=1
+  if query_str["seq_id"] =~ /none/
+    view("Please select Test!!","Error!")
+    exit
+  else
+    # get test Max Point
+    max_point = logDB.getByTestMaxPoint(query_str["test_id"])[0]
+    # get test point , time from test_logs
+    point_and_time = logDB.getByTestPointAndTime(query_str["login"] , query_str["test_id"] , time_from , time_to)
+    
+    xy_array = Array.new
+    i = 0
+    point_and_time.each do |pt|
+      x_time = Time.parse(pt[0])
+      xy_array.push([x_time.strftime("%m/%d-%H:%M"),pt[1].to_i])
+      i+=1
+    end
+    
+    out_img_tag = makeChart("700x300","lc","x,y",xy_array,max_point,10)
   end
-  
-  out_img_tag = makeChart("700x300","lc","x,y",xy_array,max_point,10)
 end
 
 # DB Connect Close
