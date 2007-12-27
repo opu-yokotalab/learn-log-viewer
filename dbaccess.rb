@@ -18,7 +18,7 @@ class DBAccess
   def getByModuleName(module_id)
     if module_id != -1
       res = @conn.exec("select module_name from ent_modules where id = #{module_id}")
-      return res.result[0]
+      return res.result[0][0]
     end
   end
 
