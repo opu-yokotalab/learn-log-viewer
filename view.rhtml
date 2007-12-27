@@ -100,7 +100,7 @@ function reportError(request){
 </head>
 <BODY>
 
-<h2>ADEL Log Viewer</h2>
+<h2>ADEL Log Viewer</h2> <b>Ver. 1.0a</b>
 
 <table border="0" height="100%">
 <tr>
@@ -168,7 +168,7 @@ Login ID:
 <div style="margin:10px;padding:10px;border:solid 2px gray;">
 <span style="font-weight:bold;font-size:1.0em;">Module Log</span>
 <input type="radio" name="log_type" value="module" checked="true" /><br />
-SEQ ID:
+学習SEQ選択:
 <select name="seq_id">
 <option value="none">---</option>
 <% seq = logDB.getSeqList %>
@@ -196,7 +196,6 @@ Test Name:
 </select><br />
 
 得点:<input type="radio" name="view_type_test" value="point" checked="true" />
-実施時間:<input type="radio" name="view_type_test" value="time" />
 </div>
 
 <input type="button" onclick="getHTML();" value="submit" />

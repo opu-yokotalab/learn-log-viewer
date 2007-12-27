@@ -7,8 +7,8 @@ def xy_max(xy_array)
   # xy_array 最大値を求める
   max_value = 0
   xy_array.each do |v|
-    if max_value < v[1].to_i
-      max_value = v[1].to_i
+    if max_value < v[1]
+      max_value = v[1]
     end
   end
   return max_value
@@ -63,8 +63,9 @@ def setParams(chs,cht,chxt,array,max_value,y_split)
 end
 
 # GoogleChart imgタグ生成関数
-# 引数：chs 画像サイズ,cht グラフタイプ,chxt x軸とy軸,array グラフの値のハッシュ
-# max_value プロット値の最大値,y軸の目盛の分割数
+# 引数
+# chs:画像サイズ,cht:グラフタイプ,chxt:x軸とy軸,array:グラフの値のハッシュ
+# max_value:プロット値の最大値, y_split:y軸の目盛の分割数
 def makeChart(chs,cht,chxt,array,max_value,y_split)
   encode_array = textEncode(array,max_value)
   chParams = setParams(chs,cht,chxt,encode_array,max_value,y_split)
@@ -109,7 +110,7 @@ query_str.store("day_to",cgi["day_to"])
 query_str.store("hour_to",cgi["hour_to"])
 
 if query_str["login"] =~ /none/
-  view("ログインIDを入力してください．","Error!")
+  view("Please input Login ID!!","Error!")
   exit
 end
 
@@ -134,8 +135,10 @@ time_to = Time.parse(time_to).strftime("%Y-%m-%d %H:%M")
 # Module or Test
 # Print to Module Log
 if query_str["log_type"] =~ /module/
+  # モジュール閲覧回数グラフの描画
   if query_str["view_type"] =~ /number/
     
+    # 全単元か否か
     if query_str["seq_id"] =~ /all/
       mod_times = logDB.getByModuleTimesAll(query_str["login"],time_from,time_to)
     else
@@ -154,8 +157,10 @@ if query_str["log_type"] =~ /module/
 
     out_img_tag = makeChart("500x600","bhg","y,x",xy_array,max_value,max_value)    
     
+  # モジュール閲覧時間グラフの描画
   elsif query_str["view_type"] =~ /time/
 
+    # 全単元か否か
     if query_str["seq_id"] =~ /all/
       mod_timezone = logDB.getByModuleTimeZoneAll(query_str["login"] , time_from , time_to)
     else
@@ -167,6 +172,7 @@ if query_str["log_type"] =~ /module/
       t1 = Time.parse(v[1])
       t2 = Time.parse(v[2])
 
+      # 時間の差分を求めハッシュに追加
       if mod_hash.key?(v[0])
         mod_hash[v[0]] = mod_hash[v[0]] + (t2 - t1)
       else
@@ -179,6 +185,7 @@ if query_str["log_type"] =~ /module/
     xy_array.each do |v|
       v[0] = logDB.getByModuleName(v[0].to_i)
       v[1] = v[1].to_f/60
+      # グラフy軸の上限値　300分
       if 300 < v[1]
         v[1] = 300
       end
