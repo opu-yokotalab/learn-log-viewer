@@ -19,7 +19,7 @@ class DBAccess
 
   def getSeqList
     res = @conn.exec("select id , seq_title from ent_seqs order by id")
-    retrun res.result
+    return res.result
   end
   
   def getLoginList
