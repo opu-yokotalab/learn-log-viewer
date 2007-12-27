@@ -246,7 +246,7 @@ if query_str["log_type"] =~ /module/
   end
 # Print to Test Log
 elsif query_str["log_type"] =~ /test/
-  if query_str["seq_id"] =~ /none/
+  if query_str["test_id"] =~ /none/
     view("Please select Test!!","Error!")
     exit
   else
