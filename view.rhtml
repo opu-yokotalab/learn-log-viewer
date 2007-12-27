@@ -70,7 +70,7 @@ function reportError(request){
 Login ID:
 <select name="login">
 <option value="none">---</option>
-<% login = logDB.getByUserList %>
+<% login = logDB.getByUserList() %>
 <% login.each do |l| %>
 <option value="<%= l %>"><%= l %></option>
 <% end %>
