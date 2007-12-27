@@ -72,7 +72,7 @@ Login ID:
 <option value="none">---</option>
 <% login = logDB.getByUserList %>
 <% login.each do |l| %>
-<option value="<%= l[0] %>"><%= l[0] %></option>
+<option value="<%= l %>"><%= l %></option>
 <% end %>
 <option value="all">all</option>
 </select><br />
