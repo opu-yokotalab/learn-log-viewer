@@ -127,10 +127,9 @@ end
 time_from = "#{query_str["year_from"]}/#{query_str["month_from"]}/#{query_str["day_from"]} #{query_str["hour_from"]}:00"
 time_to = "#{query_str["year_to"]}/#{query_str["month_to"]}/#{query_str["day_to"]} #{query_str["hour_to"]}:00"
 
+# make Time format
 time_from = Time.parse(time_from).strftime("%Y-%m-%d %H:%M")
 time_to = Time.parse(time_to).strftime("%Y-%m-%d %H:%M")
-
-
 
 # Module or Test
 # Print to Module Log
@@ -138,9 +137,9 @@ if query_str["log_type"] =~ /module/
   if query_str["view_type"] =~ /number/
     
     if query_str["seq_id"] =~ /all/
-      mod_times = logDB.getByModuleTimesAll(query_str["login"])
+      mod_times = logDB.getByModuleTimesAll(query_str["login"],time_from,time_to)
     else
-      mod_times = logDB.getByModuleTimes(query_str["login"] , query_str["seq_id"])
+      mod_times = logDB.getByModuleTimes(query_str["login"] , query_str["seq_id"] ,time_from , time_to)
     end
     
     xy_array = Array.new
@@ -158,9 +157,9 @@ if query_str["log_type"] =~ /module/
   elsif query_str["view_type"] =~ /time/
 
     if query_str["seq_id"] =~ /all/
-      mod_timezone = logDB.getByModuleTimeZoneAll(query_str["login"])
+      mod_timezone = logDB.getByModuleTimeZoneAll(query_str["login"] , time_from , time_to)
     else
-      mod_timezone = logDB.getByModuleTimeZone(query_str["login"] , query_str["seq_id"])
+      mod_timezone = logDB.getByModuleTimeZone(query_str["login"] , query_str["seq_id"] , time_from , time_to)
     end
     
     mod_hash = Hash.new
@@ -193,7 +192,7 @@ elsif query_str["log_type"] =~ /test/
   # get test Max Point
   max_point = logDB.getByTestMaxPoint(query_str["test_id"])[0]
   # get test point , time from test_logs
-  point_and_time = logDB.getByTestPointAndTime(query_str["login"] , query_str["test_id"])
+  point_and_time = logDB.getByTestPointAndTime(query_str["login"] , query_str["test_id"] , time_from , time_to)
 
   xy_array = Array.new
   i = 0
@@ -209,10 +208,6 @@ end
 # DB Connect Close
 logDB.dbClose
   
-
-if true
-view(time_from,time_to)
-else
 # View
 view(xy_array,out_img_tag)
-end
+
