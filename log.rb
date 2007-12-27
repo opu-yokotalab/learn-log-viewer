@@ -47,9 +47,10 @@ def setParams(chs,cht,chxt,array,max_value,y_split)
   # make chm
   if cht =~ /lc/
     chm = ""
-    array.length.times do |i|
+    (array.length - 1).times do |i|
       chm += "o,0000FF,0,#{i}.0,10.0|"
     end
+    chm += "o,0000FF,0,#{array.length - 1}.0,10.0"
     chParams.store("chm",chm)
   end
   # make chd
