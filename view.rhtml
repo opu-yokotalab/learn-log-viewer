@@ -8,18 +8,36 @@
 <script>
 function getHTML()
 {
+  // form 入力値の代入
   var url = '/~learn/cgi-bin/adel_log_viewer/log.cgi';
   var login = $F('login');
   var seq_id = $F('seq_id');
   var test_name = $F('test_name');
+  
+  var year_from = $F('year_from');
+  var month_from = $F('month_from');
+  var day_from = $F('day_from');
+  var hour_from = $F('hour_from');
+  
+  var year_to = $F('year_to');
+  var month_to = $F('month_to');
+  var day_to = $F('day_to');
+  var hour_to = $F('hour_to');
+
+  // radio button 処理
   var log_type = $A($(log).log_type).find(function(v) {
     return v.checked;
   });
   var view_type = $A($(log).view_type).find(function(v) {
     return v.checked;
   });
+
+
   var pars = 'login=' + login + '&log_type=' + log_type.value + '&seq_id=' +
-  seq_id + '&view_type=' + view_type.value + '&test_name=' + test_name;
+  seq_id + '&view_type=' + view_type.value + '&test_name=' + test_name +
+  '&year_from' + year_from + '&month_from' + month_from + '&day_from' +
+  day_from + '&year_to' + year_to + '&month_to' + month_to +
+  '&day_to' + day_to;
 
   var myAjax = new Ajax.Updater(
                  {success: 'module_view'}, 
@@ -45,8 +63,7 @@ function reportError(request){
 <tr>
 <td valign="top" width="350px;" style="border-right:solid 3px gray;">
 <form id="log" action="./log.cgi" method="get">
-Login ID:<input type="text" id="login" size="30" value="<%=
-logDB.getByUserID('konishi') %>" /><br />
+Login ID:<input type="text" id="login" size="30" /><br />
 日時指定:<br />
 <select name="year_from">
 <option value="2007">2007</option>
@@ -122,6 +139,7 @@ Test Name:<input type="text" id="test_name" size="40" /><br />
 
 <td valign="top">
 <div style="left:20px;" id="module_view">
+<h3>Chart Area</h3>
 </div>
 </td>
 </tr>

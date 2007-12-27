@@ -98,6 +98,16 @@ query_str.store("view_type",cgi["view_type"])
 query_str.store("seq_id",cgi["seq_id"])
 query_str.store("test_name",cgi["test_name"])
 
+query_str.store("year_from",cgi["year_from"])
+query_str.store("month_from",cgi["month_from"])
+query_str.store("day_from",cgi["day_from"])
+query_str.store("hour_from",cgi["hour_from"])
+
+query_str.store("year_to",cgi["year_to"])
+query_str.store("month_to",cgi["month_to"])
+query_str.store("day_to",cgi["day_to"])
+query_str.store("hour_to",cgi["hour_to"])
+
 # make DB instance
 logDB = DBAccess.new
 
@@ -181,6 +191,10 @@ end
 # DB Connect Close
 logDB.dbClose
   
-# View
 
+if true
+view(query_str,"dummy")
+else
+# View
 view(xy_array,out_img_tag)
+end
