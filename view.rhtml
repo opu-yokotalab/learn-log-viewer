@@ -67,7 +67,16 @@ function reportError(request){
 <tr>
 <td valign="top" width="350px;" style="border-right:solid 3px gray;">
 <form id="log" action="./log.cgi" method="get">
-Login ID:<input type="text" id="login" size="30" /><br />
+Login ID:
+<select name="login">
+<option value="none">---</option>
+<% login = logDB.getLoginList
+ login.each do |l| %>
+<option value="<%= l %>"><%= l %></option>
+<% end %>
+<option value="all">all</option>
+</select><br />
+
 日時指定:<br />
 <select name="year_from">
 <option value="2007">2007</option>
