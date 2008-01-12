@@ -47,7 +47,7 @@ end
 <script>
 function getHTML()
 {
-  // form $BF~NOCM$NBeF~(B
+  // form 入力値の代入
   var url = '/~learn/cgi-bin/adel_log_viewer/log.cgi';
   var login = selection(log.login);
   var seq_id = selection(log.seq_id);
@@ -63,7 +63,7 @@ function getHTML()
   var day_to = selection(log.day_to);
   var hour_to = selection(log.hour_to);
 
-  // radio button $B=hM}(B
+  // radio button 処理
   var log_type = $A($(log).log_type).find(function(v) {
     return v.checked;
   });
@@ -116,60 +116,60 @@ Login ID:
 <option value="all">all</option>
 </select><br />
 
-$BF|;~;XDj(B:<br />
+日時指定:<br />
 <select name="year_from">
 <option value="2007">2007</option>
 <option value="2008">2008</option>
-</select>$BG/(B
+</select>年
 
 <select name="month_from">
 <% (1..12).each do |i| %>
 <option value="<%= i %>"><%= i %></option>
 <% end %>
-</select>$B7n(B
+</select>月
 
 <select name="day_from">
 <% (1..31).each do |i| %>
 <option value="<%= i %>"><%= i %></option>
 <% end %>
-</select>$BF|(B
+</select>日
 
 <select name="hour_from">
 <option value="none">---</option>
 <% (0..23).each do |i| %>
 <option value="<%= i %>"><%= i %></option>
 <% end %>
-</select>$B;~!!$+$i(B
+</select>時　から
 <br />
 
 <select name="year_to">
 <option value="2007">2007</option>
-</select>$BG/(B
+</select>年
 
 <select name="month_to">
 <% (1..12).each do |i| %>
 <option value="<%= i %>"><%= i %></option>
 <% end %>
-</select>$B7n(B
+</select>月
 
 <select name="day_to">
 <% (1..31).each do |i| %>
 <option value="<%= i %>"><%= i %></option>
 <% end %>
-</select>$BF|(B
+</select>日
 
 <select name="hour_to">
 <option value="none">---</option>
 <% (0..23).each do |i| %>
 <option value="<%= i %>"><%= i %></option>
 <% end %>
-</select>$B;~!!$^$G(B
+</select>時　まで
 <br />
 
 <div style="margin:10px;padding:10px;border:solid 2px gray;">
 <span style="font-weight:bold;font-size:1.0em;">Module Log</span>
 <input type="radio" name="log_type" value="module" checked="true" /><br />
-$B3X=,(BSEQ$BA*Br(B:
+学習SEQ選択:
 <select name="seq_id">
 <option value="none">---</option>
 <% seq = logDB.getSeqList %>
@@ -179,8 +179,8 @@ Login ID:
 <option value="all">all</option>
 </select><br />
 
-$B1\Mw2s?t(B:<input type="radio" name="view_type" value="number" checked="true" />
-$B1\Mw;~4V(B:<input type="radio" name="view_type" value="time" />
+閲覧回数:<input type="radio" name="view_type" value="number" checked="true" />
+閲覧時間:<input type="radio" name="view_type" value="time" />
 </div>
 
 <div style="margin:10px;padding:10px;border:solid 2px gray;">
@@ -196,7 +196,7 @@ Test Name:
 <!-- <option value="all">all</option> -->
 </select><br />
 
-$BF@E@(B:<input type="radio" name="view_type_test" value="point" checked="true" />
+得点:<input type="radio" name="view_type_test" value="point" checked="true" />
 </div>
 
 <input type="button" onclick="getHTML();" value="submit" />
