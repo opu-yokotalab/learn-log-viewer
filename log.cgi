@@ -129,6 +129,11 @@ end
 def view(v1,v2)
   print "Content-type: text/html\n\n"
   p v1
+  s = 0
+  v1.each do |v|
+    s += v[1]
+  end
+  p s
   print "<br /><br />"
   print v2
 end
