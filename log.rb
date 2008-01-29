@@ -132,7 +132,7 @@ def view(v1,v2)
   print "<br />"
   i = 1
   v1.each do |v|
-    print "#{v},"
+    print "#{v[1]},"
   end
   print "<br /><br />"
   print v2
